@@ -1,0 +1,27 @@
+.Verse {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.LineNumbers {
+  min-width: 20px;
+  margin-right: 2em;
+
+  &.empty {
+    width: 20px;
+    align-self: stretch;
+  }
+
+  & > p {
+    text-align: right;
+    user-select: none;
+  }
+}
+
+.Line {
+  white-space: pre-wrap;
+  text-align: left;
+  text-indent: -3em;
+  padding-left: 3em;
+}
