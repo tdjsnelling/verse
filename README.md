@@ -45,4 +45,12 @@ Bold (`**bold**`) and italic (`*italic*`) delimiters in the supplied verse will 
 
 Prefixing a line with the skip character (default `!`) will mean that line does not increment the line counter. Useful for things like intra-poem paragraph titles. Empty lines do not need the skip character.
 
+## Styling
+
+Custom CSS can be supplied for the following class names:
+
+* `Verse_Verse`
+* `Verse_LineNumbers`
+* `Verse_Line`
+
 ## [Demo](https://codesandbox.io/p/sandbox/txmpn5)
