@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Verse.module.css";
-
-const LINE_HEIGHT = 22;
-const COUNTER_SKIP_CHAR = "!";
 
 const boldRegExp = /\*\*([^*]+)\*\*/g;
 const italicRegExp = /\*([^*\s][^*]+[^*\s])\*/g;
 
-const formatLine = (line: string): JSX.Element | string => {
-  if (line.startsWith(COUNTER_SKIP_CHAR))
-    line = line.replace(COUNTER_SKIP_CHAR, "");
+const formatLine = (
+  line: string,
+  counterSkipChar: string,
+): JSX.Element | string => {
+  if (line.startsWith(counterSkipChar))
+    line = line.replace(counterSkipChar, "");
 
   const boldMatches = line.matchAll(boldRegExp);
   for (const match of boldMatches) {
@@ -26,12 +26,16 @@ const formatLine = (line: string): JSX.Element | string => {
 
 export default function Verse({
   verse,
+  lineHeight = 22,
   width = "100%",
   noLineNumbers = false,
+  counterSkipChar = "!",
 }: {
   verse: string;
+  lineHeight?: number;
   width?: string;
   noLineNumbers?: boolean;
+  counterSkipChar?: string;
 }) {
   const [parsedVerse, setParsedVerse] = useState<{
     lines: string[];
@@ -58,12 +62,12 @@ export default function Verse({
           if (
             line.length &&
             line.trim() !== "" &&
-            !line.startsWith(COUNTER_SKIP_CHAR)
+            !line.startsWith(counterSkipChar)
           ) {
             acc.push(i + 1 - blanks);
             if (domLine) {
               const wrappedLines =
-                Math.ceil(domLine.offsetHeight / LINE_HEIGHT) - 1;
+                Math.ceil(domLine.offsetHeight / lineHeight) - 1;
               for (let i = 0; i < wrappedLines; i++) acc.push(null);
             }
           } else {
@@ -109,7 +113,7 @@ export default function Verse({
                 {parsedVerse.numbers.map((num, i) => (
                   <p
                     key={`verse-line-number-${i}-${num}`}
-                    style={{ lineHeight: `${LINE_HEIGHT}px` }}
+                    style={{ lineHeight: `${lineHeight}px` }}
                   >
                     {typeof num === "number" && num % linesGap === 0 ? (
                       num
@@ -126,13 +130,13 @@ export default function Verse({
         )}
         <div style={{ maxWidth: `${width}px` }}>
           {parsedVerse.lines.map((line, i) => (
-            <pre
+            <span
               key={`verse-line-${i}`}
               className={styles.Line}
-              style={{ lineHeight: `${LINE_HEIGHT}px` }}
+              style={{ lineHeight: `${lineHeight}px` }}
             >
-              {line.length ? formatLine(line) : <>&nbsp;</>}
-            </pre>
+              {line.length ? formatLine(line, counterSkipChar) : <>&nbsp;</>}
+            </span>
           ))}
         </div>
       </div>

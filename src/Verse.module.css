@@ -1,7 +1,6 @@
 .Verse {
   display: flex;
   align-items: flex-start;
-  justify-content: center;
 }
 
 .LineNumbers {
@@ -16,12 +15,15 @@
   & > p {
     text-align: right;
     user-select: none;
+    margin: 0;
   }
 }
 
 .Line {
+  display: block;
   white-space: pre-wrap;
   text-align: left;
   text-indent: -3em;
   padding-left: 3em;
+  margin: 0;
 }

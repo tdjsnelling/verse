@@ -1,14 +1,23 @@
 {
-  "name": "verse",
+  "name": "@tdjsnelling/verse",
   "version": "1.0.0",
   "description": "A React component for rendering poetry",
-  "main": "dist/index.js",
-  "repository": "https://github.com/tdjsnelling/verse",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdjsnelling/verse.git"
+  },
   "author": "Tom Snelling",
   "license": "MIT",
   "private": false,
+  "files": [
+    "/dist",
+    "./index.d.ts"
+  ],
   "scripts": {
-    "build": "esbuild src/index.tsx src/Verse.module.css --bundle --format=esm --target=es2020 --external:react --outdir=dist",
+    "build": "esbuild src/index.tsx --bundle --format=esm --target=es2020 --external:react --outdir=dist",
     "types": "tsc src/index.tsx --declaration --allowJs --jsx react --emitDeclarationOnly --outDir ."
   },
   "devDependencies": {
@@ -22,5 +31,8 @@
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",
     "typescript": "^5"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
   }
 }
